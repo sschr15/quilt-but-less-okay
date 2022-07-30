@@ -1,0 +1,22 @@
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="javafml"
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+# Forge for 1.19 is version 41
+loaderVersion="*"
+# The license for your mod. This is mandatory and allows for easier comprehension of your redistributive properties.
+# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
+license="Mozilla Public License 2.0"
+# A URL to refer people to when problems occur with this mod
+issueTrackerURL="https://github.com/sschr15/quilt-but-less-okay/issues"
+# If the mods defined in this file should show as separate resource packs
+showAsResourcePack=false
+
+[[mods]]
+modId="quilt_but_less_okay"
+version="${version}"
+displayName="Dirty Quilt Hacks"
+logoFile="assets/qblo/icon.png"
+authors="sschr15"
+description='''
+A collection of features to allow (originally) Quilt mods to do more (mostly in unsafe ways)
+'''

@@ -37,7 +37,7 @@ dependencies {
 processResources {
 	inputs.property "version", version
 
-	filesMatching('quilt.mod.json') {
+	filesMatching(['quilt.mod.json', 'fabric.mod.json', 'mods.toml']) {
 		expand "version": version
 	}
 }
