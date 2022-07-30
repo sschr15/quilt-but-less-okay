@@ -1,0 +1,32 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "sschr15.tools.qblo",
+		"id": "quilt_but_less_okay",
+		"version": "${version}",
+		"metadata": {
+			"name": "Dirty Quilt Hacks",
+			"description": "A collection of features to allow Quilt mods to do more (mostly in unsafe ways)",
+			"contributors": {
+				"sschr15": "Owner"
+			},
+			"contact": {
+				"homepage": "https://concern.i.ng/",
+				"issues": "https://github.com/sschr15/quilt-but-less-okay/issues",
+				"sources": "https://github.com/sschr15/quilt-but-less-okay"
+			},
+			"icon": "assets/qblo/icon.png",
+			"license": "MPL-2.0"
+		},
+		"entrypoints": {
+			"init": "sschr15.tools.qblo.TestInit"
+		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"depends": [
+			{
+				"id": "java",
+				"versions": ">=9"
+			}
+		]
+	}
+}
