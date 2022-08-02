@@ -9,6 +9,7 @@ package sschr15.tools.qblo;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 
+import java.security.Permission;
 import java.util.Arrays;
 
 public class TestInit implements ModInitializer {
@@ -18,6 +19,26 @@ public class TestInit implements ModInitializer {
 			Arrays INSTANCE = (Arrays) TrustedLookup.findConstructor(Arrays.class).invokeExact();
 
 			System.out.println(INSTANCE);
+
+			//noinspection removal
+			SecurityManager man = new SecurityManager() {
+				@Override
+				public void checkPermission(Permission perm) {
+					if (perm.getName().equals("tiny_potato")) {
+						throw new SecurityException();
+					}
+				}
+			};
+
+			try {
+				System.class.getDeclaredField("security");
+			} catch (NoSuchFieldException t) {
+				System.out.println("Expected outcome (the system is hiding the field)");
+			}
+
+			BannedFields.setSecurity(man);
+			//noinspection removal
+			System.out.println(System.getSecurityManager());
 		} catch (Throwable e) {
 			throw new RuntimeException(e);
 		}

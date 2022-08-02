@@ -47,7 +47,16 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 compileJava {
-	options.compilerArgs << "--add-exports" << "java.base/jdk.internal.misc=ALL-UNNAMED"
+	def exports = [
+	        "java.base": [ "jdk.internal.reflect", "jdk.internal.misc", "jdk.internal.access" ]
+	]
+	for (export in exports) {
+		def mod = export.key
+		def packages = export.value
+		for (pkg in packages) {
+			options.compilerArgs << '--add-exports' << "$mod/$pkg=ALL-UNNAMED"
+		}
+	}
 }
 
 java {

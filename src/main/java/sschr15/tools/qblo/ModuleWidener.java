@@ -10,7 +10,7 @@ import java.lang.invoke.MethodHandle;
 
 public class ModuleWidener {
 	private static final Module EVERYONE_MODULE;
-	private static final MethodHandle moduleAddExportsOrOpens;
+	private static final MethodHandle moduleAddExportsOrOpens; // Module.addExportsOrOpens(String package, Module to, boolean openInsteadOfExport, boolean syncVm)
 
 	static {
 		try {
@@ -28,7 +28,9 @@ public class ModuleWidener {
 
 	public static void exportModule(Module module, String pkg) {
 		try {
+			// both `exports` and `opens` the module to the EVERYONE_MODULE
 			moduleAddExportsOrOpens.invokeExact(module, pkg, EVERYONE_MODULE, false, true);
+			moduleAddExportsOrOpens.invokeExact(module, pkg, EVERYONE_MODULE, true, true);
 		} catch (Throwable e) {
 			Unsafe.OBJECTS.sunUnsafe().throwException(e);
 			throw new RuntimeException(e);

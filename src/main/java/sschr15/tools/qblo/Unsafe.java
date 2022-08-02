@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 /**
  * A static instance of the {@link sun.misc.Unsafe} class,
  * the {@link MethodHandles.Lookup#IMPL_LOOKUP trusted} lookup,
- * and calls into the (normally) inaccessible {@link jdk.internal.misc.Unsafe} class.
+ * and the (normally) inaccessible {@link jdk.internal.misc.Unsafe} class.
  */
 @SuppressWarnings({"JavadocReference", "RedundantSuppression", "unused"})
 public class Unsafe {
@@ -55,6 +55,18 @@ public class Unsafe {
 		} catch (Throwable t) {
 			throw new RuntimeException("Unable to get Unsafe instance", t);
 		}
+	}
+
+	public static sun.misc.Unsafe sun() {
+		return OBJECTS.sunUnsafe;
+	}
+
+	public static jdk.internal.misc.Unsafe jdk() {
+		return OBJECTS.internalUnsafe;
+	}
+
+	public static MethodHandles.Lookup lookup() {
+		return OBJECTS.trustedLookup;
 	}
 
 	public record Objects(
