@@ -79,7 +79,7 @@ public class TrustedLookup {
 	/**
 	 * Get a class, regardless of whether it is considered open or not.
 	 */
-	public static Class<?> getClass(@Identifier String name) {
+	public static Class<?> getClass(String name) {
 		try {
 			return Unsafe.OBJECTS.trustedLookup().findClass(name);
 		} catch (Exception e) {

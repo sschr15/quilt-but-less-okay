@@ -1,16 +1,28 @@
 package sschr15.tools.qblo;
 
+import java.lang.reflect.Field;
+
 /**
  * An array of memory. It doesn't care what you're storing, but it *does* safely
  * check for out-of-bounds accesses.
  */
+@SuppressWarnings("unused")
 public class RawMemoryArray implements AutoCloseable {
 	private final long address;
-	private final long size;
-	private Object working;
+	public final long size;
+	private Object working = new Object();
 
-	private static final long WORKING_OFFSET = Unsafe.jdk().objectFieldOffset(RawMemoryArray.class, "WORKING");
+	private static final long WORKING_OFFSET;
 	private static final int OBJECT_ADDRESS_SIZE = Unsafe.jdk().addressSize();
+
+	static {
+		try {
+			Field field = RawMemoryArray.class.getDeclaredField("working");
+			WORKING_OFFSET = Unsafe.jdk().objectFieldOffset(field);
+		} catch (Throwable t) {
+			throw (Error) Utils.justThrow(t);
+		}
+	}
 
 	public RawMemoryArray(long size) {
 		this.address = Unsafe.jdk().allocateMemory(size);
@@ -128,7 +140,7 @@ public class RawMemoryArray implements AutoCloseable {
 
 	private void checkIndex(long index, long size) {
 		long offset = address - index;
-		if (offset < 0 || offset >= this.size || offset + size > this.size) {
+		if (offset < 0 || index >= this.size || index + size > this.size) {
 			throw new IndexOutOfBoundsException();
 		}
 	}

@@ -9,6 +9,7 @@ public class InternalAsm {
 		ModuleWidener.exportModule(Object.class, ROOT + ".commons");
 		ModuleWidener.exportModule(Object.class, ROOT + ".util");
 		ModuleWidener.exportModule(Object.class, ROOT + ".tree");
+		ModuleWidener.exportModule(Object.class, ROOT + ".tree.analysis");
 		ModuleWidener.exportModule(Object.class, ROOT + ".signature");
 	}
 

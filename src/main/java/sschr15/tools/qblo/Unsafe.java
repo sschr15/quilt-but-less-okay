@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
  * the {@link MethodHandles.Lookup#IMPL_LOOKUP trusted} lookup,
  * and the (normally) inaccessible {@link jdk.internal.misc.Unsafe} class.
  */
-@SuppressWarnings({"JavadocReference", "RedundantSuppression", "unused"})
+@SuppressWarnings("unused")
 public class Unsafe {
 	public static final Objects OBJECTS;
 	static {
