@@ -35,7 +35,7 @@ tasks.processResources {
 tasks.compileJava {
 	val exports = mapOf(
 	        "java.base" to listOf(
-                listOf("reflect, misc, access").map { "jdk.internal.$it" },
+                listOf("reflect", "misc", "access").map { "jdk.internal.$it" },
                 listOf("commons", "signature", "tree", "tree.analysis", "util").map { "jdk.internal.org.objectweb.asm.$it" },
                 listOf("jdk.internal.org.objectweb.asm"),
             ).flatten(),
