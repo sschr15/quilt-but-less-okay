@@ -12,7 +12,7 @@ allprojects {
     apply(plugin = "java")
     apply(plugin = "org.quiltmc.gradle.licenser")
 
-    version = "0.3.0"
+    version = "0.4.0"
     group = "sschr15.tools.qblo"
 
     repositories {
