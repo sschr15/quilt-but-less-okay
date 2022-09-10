@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 @file:Suppress("FunctionName", "JAVA_MODULE_DOES_NOT_EXPORT_PACKAGE") // because there's no --add-exports for kotlin
 
 package sschr15.tools.qblo.kt
