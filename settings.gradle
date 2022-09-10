@@ -12,3 +12,6 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
+
+include ':qblo-kotlin'
+include 'native'

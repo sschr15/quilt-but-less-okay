@@ -1,6 +1,7 @@
 package sschr15.tools.qblo;
 
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 
 /**
  * An array of memory. It doesn't care what you're storing, but it *does* safely
@@ -9,6 +10,7 @@ import java.lang.reflect.Field;
 @SuppressWarnings("unused")
 public class RawMemoryArray implements AutoCloseable {
 	private final long address;
+	private final boolean needsDeallocation;
 	public final long size;
 	private Object working = new Object();
 
@@ -24,9 +26,25 @@ public class RawMemoryArray implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * Allocate a new memory area.
+	 * @param size The size of the area in bytes.
+	 */
 	public RawMemoryArray(long size) {
 		this.address = Unsafe.jdk().allocateMemory(size);
 		this.size = size;
+		this.needsDeallocation = true;
+	}
+
+	/**
+	 * Interpret an existing memory area as a RawMemoryArray.
+	 * @param address The starting address of the memory area.
+	 * @param size The size of the area in bytes.
+	 */
+	public RawMemoryArray(long address, long size) {
+		this.address = address;
+		this.size = size;
+		this.needsDeallocation = false;
 	}
 
 	public boolean getBoolean(long index, byte bit) {
@@ -129,6 +147,27 @@ public class RawMemoryArray implements AutoCloseable {
 		}
 	}
 
+	public byte[] getBytes(long index, int length) {
+		checkIndex(index, length);
+		byte[] bytes = new byte[length];
+		long base = Unsafe.jdk().arrayBaseOffset(byte[].class);
+		Unsafe.jdk().copyMemory(null, address + index, bytes, base, length);
+		return bytes;
+	}
+
+	public String getNullTerminatedString(long index) {
+		checkIndex(index, 1);
+		long currentIndex = index;
+		try {
+			while (getByte(currentIndex) != 0) {
+				currentIndex++;
+			}
+		} catch (IndexOutOfBoundsException e) {
+			throw new IndexOutOfBoundsException("String is not null-terminated");
+		}
+		return new String(getBytes(index, (int) (currentIndex - index)), StandardCharsets.UTF_8);
+	}
+
 	public boolean isValidIndex(long index) {
 		try {
 			checkIndex(index, 1);
@@ -147,6 +186,8 @@ public class RawMemoryArray implements AutoCloseable {
 
 	@Override
 	public void close() {
-		Unsafe.jdk().freeMemory(address);
+		if (needsDeallocation) {
+			Unsafe.jdk().freeMemory(address);
+		}
 	}
 }

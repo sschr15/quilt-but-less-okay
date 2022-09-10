@@ -2,12 +2,11 @@
 
 package sschr15.tools.qblo.kt
 
-import sschr15.tools.qblo.BreakingEnums
-import sschr15.tools.qblo.MemberAccess
-import sschr15.tools.qblo.RawMemoryArray
+import sschr15.tools.qblo.*
 import sschr15.tools.qblo.internals.AccessAxe
 import sschr15.tools.qblo.internals.InternalAsm
 import sschr15.tools.qblo.internals.InternalReflectVerifier
+import java.lang.instrument.Instrumentation
 import java.lang.reflect.Field
 import kotlin.reflect.KClass
 
@@ -40,6 +39,29 @@ public inline operator fun RawMemoryArray.set(index: Long, value: Any?) {
         else -> setObject(index, value)
     }
 }
+
+public inline fun Module.export(pkg: String) {
+    ModuleWidener.exportModule(this, pkg)
+}
+
+public inline fun Class<*>.exportThisPackage() {
+    ModuleWidener.exportModule(this, this.`package`.name)
+}
+
+public inline fun KClass<*>.exportThisPackage() {
+    java.exportThisPackage()
+}
+
+public inline fun Class<*>.exportPackageFromThisModule(pkg: String) {
+    ModuleWidener.exportModule(this, pkg)
+}
+
+public inline fun KClass<*>.exportPackageFromThisModule(pkg: String) {
+    java.exportPackageFromThisModule(pkg)
+}
+
+public inline val instrumentation: Instrumentation
+    get() = InstrumentationSetup.getInstrumentation()
 
 public inline fun asmInit() {
     InternalAsm.init()

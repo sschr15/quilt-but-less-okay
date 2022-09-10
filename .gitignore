@@ -28,3 +28,6 @@ workspace/
 
 # macOS
 *.DS_Store
+
+# funky native errors
+hs_err_pid*

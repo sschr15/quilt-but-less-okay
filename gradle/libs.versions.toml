@@ -7,6 +7,7 @@ quilt_loader = "0.17.1-beta.6"
 quilted_fabric_api = "2.0.0-beta.9+0.58.0-1.19"
 
 jetbrains_annotations = "23.0.0"
+jna = "5.12.1"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -17,6 +18,8 @@ quilted_fabric_api = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-a
 quilted_fabric_api_deprecated = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api-deprecated", version.ref = "quilted_fabric_api" }
 
 jetbrains_annotations = { module = "org.jetbrains:annotations", version.ref = "jetbrains_annotations" }
+jna_base = { module = "net.java.dev.jna:jna", version.ref = "jna" }
+jna_platform = { module = "net.java.dev.jna:jna-platform", version.ref = "jna" }
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]
