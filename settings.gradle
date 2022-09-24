@@ -14,4 +14,3 @@ pluginManagement {
 }
 
 include ':qblo-kotlin'
-include 'native'
