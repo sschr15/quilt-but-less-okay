@@ -7,6 +7,7 @@
 package sschr15.tools.qblo;
 
 import org.intellij.lang.annotations.Identifier;
+import sschr15.tools.qblo.annotations.JvmClass;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodType;
@@ -79,7 +80,7 @@ public class TrustedLookup {
 	/**
 	 * Get a class, regardless of whether it is considered open or not.
 	 */
-	public static Class<?> getClass(String name) {
+	public static Class<?> getClass(@JvmClass String name) {
 		try {
 			return Unsafe.OBJECTS.trustedLookup().findClass(name);
 		} catch (Exception e) {
