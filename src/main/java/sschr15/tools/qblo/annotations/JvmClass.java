@@ -14,4 +14,12 @@ import static java.lang.annotation.ElementType.*;
 @Language(value = "JAVA", prefix = "import ", suffix = ";")
 @Retention(RetentionPolicy.CLASS)
 @Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, ANNOTATION_TYPE, PACKAGE, TYPE_PARAMETER, TYPE_USE, MODULE, RECORD_COMPONENT})
-public @interface JvmClass {}
+public @interface JvmClass {
+	/**
+	 * A class name, as {@link Class#forName(String)} would expect.
+	 */
+	@Language(value = "JAVA", prefix = "class X { Class<?> x = Class.forName(\"", suffix = "\"); }")
+	@Retention(RetentionPolicy.CLASS)
+	@Target({TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, ANNOTATION_TYPE, PACKAGE, TYPE_PARAMETER, TYPE_USE, MODULE, RECORD_COMPONENT})
+	@interface ForName {}
+}

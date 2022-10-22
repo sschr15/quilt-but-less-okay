@@ -80,7 +80,7 @@ public class TrustedLookup {
 	/**
 	 * Get a class, regardless of whether it is considered open or not.
 	 */
-	public static Class<?> getClass(@JvmClass String name) {
+	public static Class<?> getClass(@JvmClass.ForName String name) {
 		try {
 			return Unsafe.OBJECTS.trustedLookup().findClass(name);
 		} catch (Exception e) {
